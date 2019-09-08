@@ -1,4 +1,4 @@
-package com.micgogi.aircargo;
+package com.cargo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AircargoApplicationTests {
+public class AircargoserviceApplicationTests {
 
 	@Test
 	public void contextLoads() {
