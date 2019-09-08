@@ -1,13 +1,13 @@
-package com.micgogi.aircargo;
+package com.brajesh.cargo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AircargoApplication {
+public class AirCargoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AircargoApplication.class, args);
+		SpringApplication.run(AirCargoApplication.class, args);
 	}
 
 }
