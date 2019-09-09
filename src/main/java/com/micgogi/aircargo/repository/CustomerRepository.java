@@ -8,7 +8,7 @@ import com.micgogi.aircargo.entity.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Integer> {
-	Customer findByEmail(String email);
-	Boolean existsByEmail(String email);
+	Customer findByEmailId(String email);
+	Boolean existsByEmailId(String email);
 	
 }
