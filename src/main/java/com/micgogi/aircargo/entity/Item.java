@@ -25,7 +25,7 @@ public class Item {
 	private String itemName;
 	@Column(name="weight")
 	private double weight;
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name="consignmentNo",nullable = false)
 	private Consignment consignemnt;
 	

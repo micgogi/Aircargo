@@ -9,10 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -42,12 +43,21 @@ public class Consignment {
 
 	@Column(name = "destination")
 	private String destination;
+    @JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "accountNo")
+	Customer customer;
+	
 
 	
 
-	@ManyToOne
-	@JoinColumn(name = "accountNo", nullable = false)
-	private Customer customer;
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 
 	public int getConsignmentNo() {
 		return consignmentNo;
@@ -107,12 +117,6 @@ public class Consignment {
 
 	
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+	
     
 }

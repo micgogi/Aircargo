@@ -1,15 +1,19 @@
 package com.micgogi.aircargo.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -27,7 +31,7 @@ public class Customer {
 	private String customerName;
 	
 	@Column(name = "mobileNo")
-	@Pattern(regexp = "(\\9|8|7|6)[0-9]{9}", message="Inavalid MObile no")
+	@Size(min=10,max=10)
 	@NotNull(message="mobileNo  cannot be empty")
 	private String mobileNo;
 	@Column(name = "emailId")
@@ -42,6 +46,7 @@ public class Customer {
 	private String password;
 	
 	int role=1;
+	
 	
 	public Customer() {
 		
@@ -72,6 +77,8 @@ public class Customer {
 	public String getCustomerName() {
 		return customerName;
 	}
+	
+
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
