@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "item")
 public class Item {
@@ -27,6 +29,7 @@ public class Item {
 	
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Consignment consignment;
 	
 	public Item() {

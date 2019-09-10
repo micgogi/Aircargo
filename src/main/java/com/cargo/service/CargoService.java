@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cargo.entity.Consignment;
 import com.cargo.entity.Customer;
+import com.cargo.entity.Item;
 import com.cargo.exception.CustomerAlreadyExistsException;
 import com.cargo.exception.CustomerNotFoundException;
 
@@ -23,4 +24,8 @@ public interface CargoService {
 	List<Consignment> listConsignment(int accountNo);
 	
 	boolean addConsignmnet(Consignment consignment,Customer customer);
+	
+	boolean addItem(int consignmentId,Item item);
+	
+	List<Item> listItem(int consignmentId);
 }

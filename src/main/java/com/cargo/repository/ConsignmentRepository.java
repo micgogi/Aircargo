@@ -13,4 +13,5 @@ public interface ConsignmentRepository extends JpaRepository<Consignment, Intege
 	@Query("select c from Consignment c where c.customer.accountNo=?1")
 	List<Consignment> findListConsignment(int accountNo);
 
+	Consignment findById(int id);
 }

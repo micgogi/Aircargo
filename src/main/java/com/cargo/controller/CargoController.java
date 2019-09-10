@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cargo.entity.Consignment;
 import com.cargo.entity.Customer;
+import com.cargo.entity.Item;
 import com.cargo.service.CargoService;
 import com.cargo.service.SecurityTokenGenerator;
 
@@ -82,7 +85,7 @@ public class CargoController {
 	}
 	
 	@GetMapping("/customer")
-	public ResponseEntity<?> getCustomer(HttpServletRequest request, HttpServletResponse response){
+	public ResponseEntity<?> getCustomer(HttpServletRequest request){
 	
 		try {
 			Customer customer=cargoService.findByEmailId(this.getToken(request));
@@ -94,7 +97,7 @@ public class CargoController {
 	}
 	
 	@PostMapping("/addConsignment")
-	public ResponseEntity<?> addConsignmnet(@RequestBody Consignment consignment,HttpServletRequest request, HttpServletResponse response){
+	public ResponseEntity<?> addConsignmnet(@RequestBody Consignment consignment,HttpServletRequest request){
 		
 		try {
 			Customer customer =cargoService.findByEmailId(this.getToken(request));
@@ -106,7 +109,7 @@ public class CargoController {
 		}
 	}
 	
-	@GetMapping("/consignment")
+	@GetMapping("/listConsignment")
 	public ResponseEntity<?> getConsignment(HttpServletRequest request, HttpServletResponse response){
 	
 		try {
@@ -119,6 +122,35 @@ public class CargoController {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
 		}
 	}
+	
+	@PostMapping("/addItem/{consignmentId}")
+	public ResponseEntity<?> addConsignmnet(@RequestBody Item item,@PathVariable int consignmentId){
+		System.out.println(consignmentId);
+		try {
+			boolean check=cargoService.addItem(consignmentId, item);
+						
+			return new ResponseEntity<>(check, HttpStatus.CREATED);
+		}catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
+		}
+	}
+	
+	@GetMapping("/listItems/{consignmentId}")
+	public ResponseEntity<?> getConsignment(@PathVariable int consignmentId){
+	
+		try {
+			
+			List<Item> Item=cargoService.listItem(consignmentId);
+			
+			
+			return new ResponseEntity<List<Item>>(Item, HttpStatus.CREATED);
+		}catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
+		}
+	}
+	
+	
+	
 
 	
 	}

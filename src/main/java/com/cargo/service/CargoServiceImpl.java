@@ -5,16 +5,19 @@ package com.cargo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cargo.entity.Consignment;
 import com.cargo.entity.Customer;
+import com.cargo.entity.Item;
 import com.cargo.exception.CustomerAlreadyExistsException;
 import com.cargo.exception.CustomerNotFoundException;
 import com.cargo.repository.ConsignmentRepository;
 import com.cargo.repository.CustomerRepository;
+import com.cargo.repository.ItemRepository;
 
 
 @Service
@@ -26,6 +29,8 @@ public class CargoServiceImpl implements CargoService{
 	@Autowired
 	private ConsignmentRepository consignmentRepo;
 
+	@Autowired
+	private ItemRepository itemRepo;
 
 	@Override
 	public boolean saveCustomer(Customer customer) throws CustomerAlreadyExistsException {
@@ -80,6 +85,26 @@ public class CargoServiceImpl implements CargoService{
 		consignmentRepo.save(consignment);
 		return true;
 		
+	}
+
+
+
+	@Override
+	public boolean addItem(int consignmentId,Item item) {
+		Consignment consignment=consignmentRepo.findById(consignmentId);
+		item.setConsignment(consignment);
+		itemRepo.save(item);
+		return true;
+	}
+
+
+
+	@Override
+	public List<Item> listItem(int consignmentId) {
+		
+		List<Item>item=itemRepo.findItemList(consignmentId);
+		item.forEach(System.out::println);
+		return item;
 	}
 	
 	
