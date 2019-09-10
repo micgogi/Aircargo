@@ -1,18 +1,24 @@
 package com.cargo.controller;
 
+
+import java.util.List;
 import java.util.Map;
 
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cargo.entity.Consignment;
 import com.cargo.entity.Customer;
 import com.cargo.service.CargoService;
 import com.cargo.service.SecurityTokenGenerator;
@@ -30,8 +36,12 @@ public class CargoController {
 	@Autowired
 	private SecurityTokenGenerator tokenGenerator;
 	
+	
+	
 	@Autowired
 	private CargoService cargoService;
+	
+	
 	
 	public String getToken(final HttpServletRequest request) {
 		  final String authHeader = request.getHeader("authorization"); 
@@ -41,13 +51,14 @@ public class CargoController {
 		
 	}
 
-	@PostMapping("/register")
-	public ResponseEntity<?> registerUser(@RequestBody Customer customer) {
+	@PostMapping("/save")
+	public ResponseEntity<?> saveCustomer(@RequestBody Customer customer,HttpServletRequest request, HttpServletResponse response) {
 		try {
+		
 			cargoService.saveCustomer(customer);
 			
 			
-			return new ResponseEntity<String>("Customer registered successfully", HttpStatus.CREATED);
+			return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
 		}
@@ -67,6 +78,45 @@ public class CargoController {
 
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+		}
+	}
+	
+	@GetMapping("/customer")
+	public ResponseEntity<?> getCustomer(HttpServletRequest request, HttpServletResponse response){
+	
+		try {
+			Customer customer=cargoService.findByEmailId(this.getToken(request));
+			
+			return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
+		}catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
+		}
+	}
+	
+	@PostMapping("/addConsignment")
+	public ResponseEntity<?> addConsignmnet(@RequestBody Consignment consignment,HttpServletRequest request, HttpServletResponse response){
+		
+		try {
+			Customer customer =cargoService.findByEmailId(this.getToken(request));
+			boolean listCustomer =cargoService.addConsignmnet(consignment, customer);
+						
+			return new ResponseEntity<Boolean>(listCustomer, HttpStatus.CREATED);
+		}catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
+		}
+	}
+	
+	@GetMapping("/consignment")
+	public ResponseEntity<?> getConsignment(HttpServletRequest request, HttpServletResponse response){
+	
+		try {
+			Customer customer=cargoService.findByEmailId(this.getToken(request));
+			List<Consignment> consignment=cargoService.listConsignment(customer.getAccountNo());
+			
+			
+			return new ResponseEntity<List<Consignment>>(consignment, HttpStatus.CREATED);
+		}catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
 		}
 	}
 

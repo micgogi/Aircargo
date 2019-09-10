@@ -16,10 +16,12 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
 
 
 
-	Optional<Customer> findByEmailId(String emailId);
+	Customer findByEmailId(String emailId);
 
 //	@Query("Select user from User user where user.userId = (?1) and user.password = (?2)")
 //	User validate(String userId, String password);
 //
 	Customer findByEmailIdAndPassword(String emailId, String password);
+	
+	
 }
