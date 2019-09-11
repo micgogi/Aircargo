@@ -75,6 +75,7 @@ public class CargoController {
 			if (null == loginDetail.getEmailId()|| null == loginDetail.getPassword()) {
 				throw new Exception("Email Id or Password canot be empty.");
 			}
+			
 			Customer customer = cargoService.findByEmailIdAndPassword(loginDetail.getEmailId(), loginDetail.getPassword());
 			Map<String, String> map = tokenGenerator.generateToken(customer);
 			return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);

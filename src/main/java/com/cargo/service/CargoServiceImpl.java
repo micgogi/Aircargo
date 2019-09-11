@@ -3,8 +3,12 @@ package com.cargo.service;
 
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +84,11 @@ public class CargoServiceImpl implements CargoService{
 
 
 	@Override
-	public boolean addConsignmnet(Consignment consignment,Customer customer) {
+	public boolean addConsignmnet(Consignment consignment,Customer customer) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		Date dateOfShipment=consignment.getDateOfShipment();
+		Date dateOfShipmentTime =sdf.parse(sdf.format(dateOfShipment));
+		consignment.setDateOfShipment(dateOfShipmentTime);
 		consignment.setCustomer(customer);
 		consignmentRepo.save(consignment);
 		return true;
@@ -106,6 +114,39 @@ public class CargoServiceImpl implements CargoService{
 		item.forEach(System.out::println);
 		return item;
 	}
+
+
+
+	@Override
+	public List<Consignment> listByAirport(String from, String to, String source) throws ParseException {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		Date fromDate = formatter.parse(from);
+		Date toDate = formatter.parse(to);
+		return consignmentRepo.listAirport(fromDate, toDate, source);
+	}
+
+
+
+	@Override
+	public List<Consignment> listByDuration(String from, String to) throws ParseException {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		Date fromDate = formatter.parse(from);
+		Date toDate = formatter.parse(to);
+		return consignmentRepo.listDuration(fromDate, toDate);
+	}
+
+
+
+	@Override
+	public List<?> listByRevenue(String from, String to) throws ParseException {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		Date fromDate = formatter.parse(from);
+		Date toDate = formatter.parse(to);
+		return consignmentRepo.listRevenue(fromDate, toDate);
+	}
+
+
+
 	
 	
 

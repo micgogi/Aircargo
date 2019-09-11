@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.cargo.entity.Item;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
+	
 	@Query("select c from Item c where c.consignment.consignmentNo=?1")
 	List<Item> findItemList(int consignmentId);
 
