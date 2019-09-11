@@ -91,4 +91,5 @@ public class CargoController {
 		List<Item> itemList = itemService.getAllItemByConsignment(id);
 		return new ResponseEntity<List<Item>>(itemList, HttpStatus.OK);
 	}
+	
 }
