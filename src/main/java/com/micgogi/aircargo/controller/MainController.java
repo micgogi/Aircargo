@@ -66,7 +66,7 @@ public class MainController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateCustomer(@RequestBody Customer customer) {
-
+		System.out.println(customer.getEmailId() + " " + customer.getPassword());
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(customer.getEmailId(), customer.getPassword()));
 		System.out.println(customer.getEmailId() + " " + customer.getPassword());
