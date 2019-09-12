@@ -85,7 +85,7 @@ public class CargoController {
 		}
 	}
 	
-	@GetMapping("/customer")
+	@GetMapping("/customer")  //for updating function we need the customer
 	public ResponseEntity<?> getCustomer(HttpServletRequest request){
 	
 		try {
