@@ -10,6 +10,7 @@ import com.brajesh.cargo.repository.ConsignmentRepository;
 
 @Service
 public class ConsignmentServiceImpl implements ConsignmentService {
+	
 	@Autowired
 	private ConsignmentRepository consignmentRepo;
 
@@ -20,7 +21,7 @@ public class ConsignmentServiceImpl implements ConsignmentService {
 	}
 
 	@Override
-	public List<Consignment> getAllConsignmentByCustomer(int id) {
+	public List<Consignment> getAllConsignmentByCustomer(String id) {
 		return consignmentRepo.getAllConsingmnetByCustomer(id);
 
 	}

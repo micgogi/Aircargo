@@ -20,7 +20,6 @@ import com.brajesh.cargoauth.service.UserService;
 
 
 @RestController
-@EnableWebMvc
 @RequestMapping("/user")
 @CrossOrigin
 public class UserController {

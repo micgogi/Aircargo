@@ -6,6 +6,6 @@ import com.brajesh.cargo.entity.Consignment;
 
 public interface ConsignmentService {
 	boolean addConsignemnt(Consignment consignment);
-	List<Consignment> getAllConsignmentByCustomer(int id);
+	List<Consignment> getAllConsignmentByCustomer(String id);
 	Consignment findById(int consignmentId);
 }

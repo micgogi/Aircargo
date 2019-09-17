@@ -21,7 +21,7 @@ public class JwtSecurityTokenGeneratorImpl implements SecurityTokenGenerator{
 	public Map<String, String> generateTokens(User user) {
 		// TODO Auto-generated method stub
 		
-		String jwtToken=null;
+		String jwtToken="";
 		
 		jwtToken = Jwts.builder()
 				.setId(""+user.getRoleId())

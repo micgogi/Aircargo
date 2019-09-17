@@ -30,9 +30,9 @@ public class Consignment {
 	@Column(name = "service_type")
 	private String serviceType;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dateOfShipment")
-	private Date dateOfShipment;
+	//@Temporal(TemporalType.DATE)
+	@Column(name = "date_of_shipment")
+	private String dateOfShipment;
 
 	@Column(name = "total_cost")
 	private double totalCost;
@@ -79,11 +79,11 @@ public class Consignment {
 		this.serviceType = serviceType;
 	}
 
-	public Date getDateOfShipment() {
+	public String getDateOfShipment() {
 		return dateOfShipment;
 	}
 
-	public void setDateOfShipment(Date dateOfShipment) {
+	public void setDateOfShipment(String dateOfShipment) {
 		this.dateOfShipment = dateOfShipment;
 	}
 
