@@ -66,7 +66,7 @@ public class MainControllerTest {
 				ResponseMessage.class);
 		assertThat(response.getBody().getMessage(),
 				containsString("Message: Yahoo! Yours Details are saved successFully"));
-	}
+}
 
 	@Test
 	public void secondTest() throws Exception {
